@@ -1,6 +1,6 @@
 <html>
   <head>
-	<meta charset="EUC-KR">
+	<meta charset="utf-8">
 	<title>DevDay 2012 Mashup Camp </title>
 	<link rel="stylesheet" href="http://fotoramajs.com/fotorama/fotorama.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	var blogPost = function(){
 		var images = $("#cart").html();
-		$.get("http://localhost:8080/gateway.jsp", {p:"<link rel='stylesheet' href='http://fotoramajs.com/fotorama/fotorama.css'>    <scr"+"ipt src='http://code.jquery.com/jquery-1.7.min.js' type='text/javascript'></scr"+"ipt>    <scr"+"ipt src='http://fotoramajs.com/fotorama/fotorama.js' type='text/javascript'></scr"+"ipt>    <div id='fotorama'> "+ images + "</div>  viva, Lets ROCK!!!  <sc"+"ript type='text/javascript'>癤�     $(function() {        $('#fotorama').fotorama();      });    </scr"+"ipt>"});
+		$.get("http://localhost:8080/gateway.jsp", {p:"<link rel='stylesheet' href='http://fotoramajs.com/fotorama/fotorama.css'>    <scr"+"ipt src='http://code.jquery.com/jquery-1.7.min.js' type='text/javascript'></scr"+"ipt>    <scr"+"ipt src='http://fotoramajs.com/fotorama/fotorama.js' type='text/javascript'></scr"+"ipt>    <div id='fotorama'> "+ images + "</div>  viva, Lets ROCK!!!  <sc"+"ript type='text/javascript'>   $(function() {        $('#fotorama').fotorama();      });    </scr"+"ipt>"});
 	}
 	var addCart = function(){
 		$("#cart").append("<img src='"+$(".fotorama__frame_active").children()[0].src+"'>")
@@ -28,10 +28,10 @@
 			jsonp : "callback",
 			data : {
 				apikey : "3803541fce89370275fcefe628ed9f9acafe223e", // API KEY
-				q : $("#q").val(), // 寃����
-				result : "10", // ����댁���異����寃곌낵��
-				pageno : $("#pageno").val(), // ���吏����
-				output : "json" // JSONP ����쇰� �몄���린 ��Ц��寃곌낵媛��щ㎎��json
+				q : $("#q").val(), 
+				result : "10", 
+				pageno : $("#pageno").val(), 
+				output : "json" 
 			},
 			success : function(r) {
 				var list = r.channel.item;
