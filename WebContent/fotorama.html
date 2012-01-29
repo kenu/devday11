@@ -9,9 +9,14 @@
 
 	
 <script type="text/javascript">
+	function alertBox() {
+    	alert('complete');
+  	}
+
 	var blogPost = function(){
 		var images = $("#cart").html();
-		$.get("http://localhost:8080/gateway.jsp", {p:"<link rel='stylesheet' href='http://fotoramajs.com/fotorama/fotorama.css'>    <scr"+"ipt src='http://code.jquery.com/jquery-1.7.min.js' type='text/javascript'></scr"+"ipt>    <scr"+"ipt src='http://fotoramajs.com/fotorama/fotorama.js' type='text/javascript'></scr"+"ipt>    <div id='fotorama'> "+ images + "</div>  viva, Lets ROCK!!!  <sc"+"ript type='text/javascript'>   $(function() {        $('#fotorama').fotorama();      });    </scr"+"ipt>"});
+		var url = $.get("http://localhost:8080/gateway.jsp", {p:"<link rel='stylesheet' href='http://fotoramajs.com/fotorama/fotorama.css'>    <scr"+"ipt src='http://code.jquery.com/jquery-1.7.min.js' type='text/javascript'></scr"+"ipt>    <scr"+"ipt src='http://fotoramajs.com/fotorama/fotorama.js' type='text/javascript'></scr"+"ipt>    <div id='fotorama'> "+ images + "</div>  viva, Lets ROCK!!!  <sc"+"ript type='text/javascript'>   $(function() {        $('#fotorama').fotorama();      });    </scr"+"ipt>"});
+		location.href = url;
 	}
 	var addCart = function(){
 		$("#cart").append("<img src='"+$(".fotorama__frame_active").children()[0].src+"'>")
