@@ -31,14 +31,14 @@ public class OAuthSignPost {
 	
 	
 //	String OAUTH_TOKEN="6159078d-8b26-4b35-a998-3e51b65b3b4b";
-	public void send(String p) {
+	public String send(String p) {
 		try {
 			String postId = sendToBlog(p);
 			modifyBlog(p, postId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(p);
+		return url;
 	}
 	public static String sendToBlog(String htmlTag) throws OAuthMessageSignerException,
 				OAuthNotAuthorizedException, OAuthExpectationFailedException,
@@ -119,6 +119,11 @@ public class OAuthSignPost {
 	        		int idxe = readLine.indexOf('<', idx);
 	        		strPostId = readLine.substring(idx+1, idxe);
 	        	}
+	        	if(readLine.contains("url>")) {
+	        		int idx = readLine.indexOf('>');
+	        		int idxe = readLine.indexOf('<', idx);
+	        		url = readLine.substring(idx+1, idxe);
+	        	}
 	        	System.out.println(strPostId+" "+readLine);
 	        }
 	        
@@ -136,8 +141,12 @@ public class OAuthSignPost {
 			"https://apis.daum.net/oauth/accessToken",
 			"https://apis.daum.net/oauth/authorize"
 			);
+	private static String url;
 	
-	public static String modifyBlog(String htmlTag, String postId) throws OAuthMessageSignerException,
+	public static String getUrl() {
+		return url;
+	}
+	public static void modifyBlog(String htmlTag, String postId) throws OAuthMessageSignerException,
 			OAuthNotAuthorizedException, OAuthExpectationFailedException,
 			OAuthCommunicationException, IOException,
 			UnsupportedEncodingException, ClientProtocolException {
@@ -175,13 +184,8 @@ public class OAuthSignPost {
 		TOKEN_SECRET = "mD_pWCQHPHzAmaasYbKHWuHmOE8j9jAoTnjJHiPnSWbOgLn4FkeOpQ00";
 		
 		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
-	
-//		String ACCESS_TOKEN = consumer.getToken();
-//		String TOKEN_SECRET = consumer.getTokenSecret();
-//		System.out.println(consumer.getToken());
-//		System.out.println(consumer.getTokenSecret());
-		
-        // if not yet done, load the token and token secret for
+
+		// if not yet done, load the token and token secret for
         // the current user and set them
         consumer.setTokenWithSecret(ACCESS_TOKEN, TOKEN_SECRET);
         
@@ -195,7 +199,6 @@ public class OAuthSignPost {
         HttpPost request = new HttpPost(PROTECTED_URL + content);
         
         
-//        StringEntity body = new StringEntity("city=hamburg&label=" + URLEncoder.encode("Send via Signpost!", "UTF-8"));
         StringEntity body = new StringEntity("");
         body.setContentType("application/x-www-form-urlencoded");
         request.setEntity(body);
@@ -208,28 +211,12 @@ public class OAuthSignPost {
         System.out.println("Response: " + response.getStatusLine().getStatusCode() + " " + response.getStatusLine().getReasonPhrase());
         HttpResponseAdapter d = new HttpResponseAdapter(response);
         
-        
-//        BufferedReader br = new BufferedReader(new InputStreamReader(re.getMessagePayload() ,"UTF-8"));
         BufferedReader br = new BufferedReader(new InputStreamReader(d.getContent() ,"UTF-8"));
         String strPostId = null;
         while(br.read() > 0){
         	String readLine = br.readLine();
-        	if(readLine.contains("url>")) {
-        		int idx = readLine.indexOf('>');
-        		int idxe = readLine.indexOf('<', idx);
-        		strPostId = readLine.substring(idx+1, idxe);
-        	}
-        	System.out.println(strPostId+" "+readLine);
         }
         
-        return strPostId;
-        
-        
-//        URL url = new URL(PROTECTED_URL);
-//        HttpURLConnection request = (HttpURLConnection) url.openConnection();
-//        consumer.sign(request);
-//        
-//        request.connect();
 	}
 
 }
