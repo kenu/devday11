@@ -1,19 +1,65 @@
 <html>
   <head>
-  </head>
-
-  <body>
-    <link rel="stylesheet" href="http://fotoramajs.com/fotorama/fotorama.css">
+	<meta charset="EUC-KR">
+	<title>DevDay 2012 Mashup Camp </title>
+	<link rel="stylesheet" href="http://fotoramajs.com/fotorama/fotorama.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+	var search = function() {
+		$.ajax({
+			url : "http://apis.daum.net/search/image",
+			dataType : "jsonp",
+			type : "post",
+			jsonp : "callback",
+			data : {
+				apikey : "3803541fce89370275fcefe628ed9f9acafe223e", // API KEY
+				q : $("#q").val(), // 검색어
+				result : "10", // 한페이지에 출력될 결과수
+				pageno : $("#pageno").val(), // 페이지번호
+				output : "json" // JSONP 형식으로 호출하기 때문에 결과값 포맷은 json
+			},
+			success : function(r) {
+				var list = r.channel.item;
+				var html = "";
+				for ( var i in list) {
+					html += "<img src=\""+ list[i].image +"\">";
+				}
+				$("#fotorama").remove();
+				var newArea = "fotorama";
+				$("body").append("<div id='"+ newArea +"'></div>")
+				$("#"+newArea).html(html).fotorama({"width": 700, "height": 464});
+				
+				$("#pageno").val(parseInt($("#pageno").val()) + 1);
+			}
+		});
+		return false;
+	};
+	$(function() {
+		$("#go").click(search);
+		$("#q").bind("change", function() {
+			$("#pageno").val(1);
+		});
+		$("#q").live("keypress", function(event) {
+			if (event.which === 13) {
+				search();
+			}
+		})
+	});
+  </script>
     <script src="http://code.jquery.com/jquery-1.7.min.js" type="text/javascript"></script>
     <script src="http://fotoramajs.com/fotorama/fotorama.js" type="text/javascript"></script>
-    <div id="fotorama">
-      <img src="http://cfile41.uf.daum.net/image/121990104A641A69E86DA7">
-      <img src="http://cfile234.uf.daum.net/image/1959E138158A04AE739F75"> 
-    </div>
-    <script type="text/javascript">
-      $(function() {
-        $('#fotorama').fotorama();
-      });
-    </script>
+  </head>
+  <body>
+  	<form onsubmit="return search()">
+		<input id="q" type="text" value="snsd"> <input id="pageno"
+			type="text" value="1"> <input id="go" type="button"
+			value="Go">
+	</form>
+<script type="text/javascript">
+</script>
+
   </body>
 </html>
