@@ -40,30 +40,6 @@ public class OAuthSignPostTest {
 		String ACCESS_TOKEN = null;
 		String TOKEN_SECRET = null;
 		
-		if(false){
-			/** A : Consumer Request Token */
-			OAuthConsumer consumer = new CommonsHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
-			//OAuthConsumer consumer = new DefaultOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);	//�댄뵆�쇨꼍��
-			
-	        String authUrl = provider.retrieveRequestToken(consumer, CALLBACK_URL);
-	
-	        /** C,D : Consumer Directs User to Service provider. and Service provider Directs User to Consumer  */
-	        System.out.println("�꾨옒 二쇱냼瑜��듯빐 verify 媛믪쓣 �낅젰�섏꽭��");
-	        System.out.println(authUrl);
-	    
-	        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			String verifier = in.readLine();
-        
-			provider.retrieveAccessToken(consumer, verifier.trim());
-		
-	//		/** E : Consumer Requests Access Token */
-			ACCESS_TOKEN = consumer.getToken();
-			TOKEN_SECRET = consumer.getTokenSecret();
-			System.out.println(ACCESS_TOKEN);
-			System.out.println(TOKEN_SECRET);
-		
-		}		
-		
 		ACCESS_TOKEN = "ec2cfe0b-d17a-4a78-9023-bb634fd75d2e";
 		TOKEN_SECRET = "mD_pWCQHPHzAmaasYbKHWuHmOE8j9jAoTnjJHiPnSWbOgLn4FkeOpQ00";
 		
