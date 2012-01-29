@@ -31,8 +31,9 @@ public class OAuthSignPost {
 	
 	
 //	String OAUTH_TOKEN="6159078d-8b26-4b35-a998-3e51b65b3b4b";
-	public String send(String p) {
+	public String send(String p, String s) {
 		try {
+			finalSubject = s;
 			String postId = sendToBlog(p);
 			modifyBlog(p, postId);
 		} catch (Exception e) {
@@ -142,6 +143,7 @@ public class OAuthSignPost {
 			"https://apis.daum.net/oauth/authorize"
 			);
 	private static String url;
+	private static String finalSubject;
 	
 	public static String getUrl() {
 		return url;
@@ -193,7 +195,7 @@ public class OAuthSignPost {
 //         create a request that requires authentication
         String content = URLEncoder.encode(htmlTag, "UTF-8");
         PROTECTED_URL = "https://apis.daum.net/blog/post/modify.do?blogName=be-_-happy-_-v" +
-        		"&title=뿌잉" +
+        		"&title=" + URLEncoder.encode(finalSubject, "utf-8") +
         		"&postId=" + postId +
         		"&content=";
         HttpPost request = new HttpPost(PROTECTED_URL + content);
