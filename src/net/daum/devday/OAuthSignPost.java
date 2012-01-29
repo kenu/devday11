@@ -31,6 +31,11 @@ public class OAuthSignPost {
 	
 //	String OAUTH_TOKEN="6159078d-8b26-4b35-a998-3e51b65b3b4b";
 	public void send(String p) {
+		try {
+			sendToBlog(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println(p);
 	}
 	public static OAuthProvider provider = new CommonsHttpOAuthProvider(
@@ -39,7 +44,7 @@ public class OAuthSignPost {
 			"https://apis.daum.net/oauth/authorize"
 			);
 	
-	public static void sendToBlog() throws OAuthMessageSignerException,
+	public static void sendToBlog(String htmlTag) throws OAuthMessageSignerException,
 			OAuthNotAuthorizedException, OAuthExpectationFailedException,
 			OAuthCommunicationException, IOException,
 			UnsupportedEncodingException, ClientProtocolException {
@@ -89,7 +94,7 @@ public class OAuthSignPost {
         
 
 //         create a request that requires authentication
-        String content = URLEncoder.encode("    <link rel=\"stylesheet\" href=\"http://fotoramajs.com/fotorama/fotorama.css\">    <script src=\"http://code.jquery.com/jquery-1.7.min.js\" type=\"text/javascript\"></script>    <script src=\"http://fotoramajs.com/fotorama/fotorama.js\" type=\"text/javascript\"></script>    <div id=\"fotorama\">      <img src=\"http://cfile41.uf.daum.net/image/121990104A641A69E86DA7\">      <img src=\"http://cfile234.uf.daum.net/image/1959E138158A04AE739F75\">     </div>    <script type=\"text/javascript\">﻿      $(function() {        $('#fotorama').fotorama();      });    </script>", "UTF-8");
+        String content = URLEncoder.encode(htmlTag, "UTF-8");
         HttpPost request = new HttpPost(PROTECTED_URL + content);
         
         
