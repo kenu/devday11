@@ -3,11 +3,19 @@
 	<meta charset="EUC-KR">
 	<title>DevDay 2012 Mashup Camp </title>
 	<link rel="stylesheet" href="http://fotoramajs.com/fotorama/fotorama.css">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="http://fotoramajs.com/fotorama/fotorama.js" type="text/javascript"></script>
+
+	
 <script type="text/javascript">
+	var addCart = function(){
+		$("#cart").append("<img src='"+$(".fotorama__frame_active").children()[0].src+"'>")
+		.children().bind("click", del);
+	}
+	var del = function(e) {
+		$(e.currentTarget).remove();
+	}
 	var search = function() {
 		$.ajax({
 			url : "http://apis.daum.net/search/image",
@@ -29,9 +37,8 @@
 				}
 				$("#fotorama").remove();
 				var newArea = "fotorama";
-				$("body").append("<div id='"+ newArea +"'></div>")
-				$("#"+newArea).html(html).fotorama({"width": 700, "height": 464});
-				
+				$("body").append("<div id='"+ newArea +"'></div>");
+				$("#"+newArea).html(html).fotorama({"width": 700, "height": 464});				
 				$("#pageno").val(parseInt($("#pageno").val()) + 1);
 			}
 		});
@@ -39,6 +46,7 @@
 	};
 	$(function() {
 		$("#go").click(search);
+		$("#addCart").click(addCart);
 		$("#q").bind("change", function() {
 			$("#pageno").val(1);
 		});
@@ -49,8 +57,10 @@
 		})
 	});
   </script>
-    <script src="http://code.jquery.com/jquery-1.7.min.js" type="text/javascript"></script>
-    <script src="http://fotoramajs.com/fotorama/fotorama.js" type="text/javascript"></script>
+<style type="text/css">
+#cart{float:right; border:1px solid #ddd; height: 320px; width:480px; overflow:hidden}
+#cart img {width:10%}
+</style>
   </head>
   <body>
   	<form onsubmit="return search()">
@@ -58,8 +68,9 @@
 			type="text" value="1"> <input id="go" type="button"
 			value="Go">
 	</form>
-<script type="text/javascript">
-</script>
+		<input id="addCart" type="button" 
+			value="Add">
+	<div id="cart"></div>
 
   </body>
 </html>
