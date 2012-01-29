@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>갤러리</title>
+<link
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+	var showImage = function(e) {
+		var imgId = "#im" + e.currentTarget.id;
+		$("#big li").hide();
+		$(imgId).show("slow");
+	};
+	var search = function() {
+		$
+				.ajax({
+					url : "http://apis.daum.net/search/image",
+					dataType : "jsonp",
+					type : "post",
+					jsonp : "callback",
+					data : {
+						apikey : "3803541fce89370275fcefe628ed9f9acafe223e", // API KEY
+						q : $("#q").val(), // 검색어
+						result : "10", // 한페이지에 출력될 결과수
+						pageno : $("#pageno").val(), // 페이지번호
+						output : "json" // JSONP 형식으로 호출하기 때문에 결과값 포맷은 json
+					},
+					success : function(r) {
+						var list = r.channel.item;
+						var html = "";
+						var big = "";
+						for ( var i in list) {
+							html += "<li id=\"g"+i+"\"><img src=\""+ list[i].thumbnail +"\"></li>"
+							big += "<li id=\"img"+i+"\"><img src=\""+ list[i].image +"\"><br />"
+									+
+									"from: <a href=\""+list[i].link+"\" target=\"_blank\">"
+									+ list[i].link + "</a></li>";
+						}
+						if (list.length === 10) {
+							html += "<li><input class=\"go\" type=\"button\" value=\">>>\"></li>";
+						}
+						$("ul#small").html(html);
+						$("ul#big").html(big);
+						$(".go").click(search);
+						$("#pageno").val(parseInt($("#pageno").val()) + 1);
+						$("#small li").bind("click", showImage);
+						$("#small li").hover(
+						function() {
+							$(this).children().css("border-color", "#f00")
+						},
+						function() {
+							$(this).children().css("border-color", "#ddd")
+						}
+						);
+						$("#big li").hide();
+						$("#img0").show("slow");
+					}
+				});
+		return false;
+	}
+	$(function() {
+		$("#go").click(search);
+		$("#q").bind("change", function() {
+			$("#pageno").val(1);
+		});
+		$("#q").live("keypress", function(event) {
+			if (event.which === 13) {
+				search();
+			}
+		})
+	});
+</script>
+<style type="text/css">
+ul li {
+	display: inline;
+}
+img {
+	height: 60px;
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 5px;
+}
+#big img {
+	height: 70%;
+	margin: 5px;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 5px;
+}
+#pageno {
+	text-align: center;
+	width: 40px;
+}
+.go {
+	height: 60px;
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid #DDD;
+	-webkit-border-radius: 5px;
+	float: right;
+}
+</style>
+</head>
+<body>
+	<form onsubmit="return search()">
+		<input id="q" type="text" value="snsd"> <input id="pageno"
+			type="text" value="1"> <input id="go" type="button"
+			value="Go">
+	</form>
+	<hr>
+	<ul id="small">
+		<li><img
+			src="http://t1.gstatic.com/images?q=tbn:ANd9GcQNKX1V8wohVDbq7CdGOMdDmL_RvHzCauAS34XWZ92SQNsmCjJHog">
+		</li>
+	</ul>
+	<ul id="big">
+	</ul>
+	<div style="padding-left: 46px">
+		<script type="text/javascript">
+		<!--
+			google_ad_client = "ca-pub-6888948265589071";
+			/* gallery */
+			google_ad_slot = "3350753572";
+			google_ad_width = 728;
+			google_ad_height = 90;
+		//-->
+		</script>
+		<script type="text/javascript"
+			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+			
+		</script>
+	</div>
+</body>
+</html>
