@@ -9,8 +9,8 @@
 
 	
 <script type="text/javascript">
-	function alertBox() {
-    	alert('complete');
+	function deleteItem(e) {
+		$(e.currentTarget).remove();
   	}
 
 	var blogPost = function(){
@@ -23,14 +23,14 @@
 					location.href = r;
 				   });
 	}
-	var addCart = function(){
-		$("#cart").append("<img src='"+$(".fotorama__frame_active").children()[0].src+"'>")
-		.children().bind("click", del);
-	}
-	var del = function(e) {
+	var delImg = function(e) {
 		$(e.currentTarget).remove();
 	}
-	var search = function() {
+	var addCart = function(){
+		$("#cart").append("<img src='"+$(".fotorama__frame_active").children()[0].src+"'>");
+		$("#cart img").unbind("click").bind("click", delImg);
+	}
+	var search = function() { 
 		$.ajax({
 			url : "http://apis.daum.net/search/image",
 			dataType : "jsonp",
