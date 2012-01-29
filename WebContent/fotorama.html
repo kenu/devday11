@@ -9,6 +9,10 @@
 
 	
 <script type="text/javascript">
+	var blogPost = function(){
+		var images = $("#cart").html();
+		$.get("http://localhost:8080/gateway.jsp", {p:"<link rel='stylesheet' href='http://fotoramajs.com/fotorama/fotorama.css'>    <scr"+"ipt src='http://code.jquery.com/jquery-1.7.min.js' type='text/javascript'></scr"+"ipt>    <scr"+"ipt src='http://fotoramajs.com/fotorama/fotorama.js' type='text/javascript'></scr"+"ipt>    <div id='fotorama'> "+ images + "</div>  viva, Lets ROCK!!!  <sc"+"ript type='text/javascript'>ç™¤ï¿½     $(function() {        $('#fotorama').fotorama();      });    </scr"+"ipt>"});
+	}
 	var addCart = function(){
 		$("#cart").append("<img src='"+$(".fotorama__frame_active").children()[0].src+"'>")
 		.children().bind("click", del);
@@ -24,10 +28,10 @@
 			jsonp : "callback",
 			data : {
 				apikey : "3803541fce89370275fcefe628ed9f9acafe223e", // API KEY
-				q : $("#q").val(), // °Ë»ö¾î
-				result : "10", // ÇÑÆäÀÌÁö¿¡ Ãâ·ÂµÉ °á°ú¼ö
-				pageno : $("#pageno").val(), // ÆäÀÌÁö¹øÈ£
-				output : "json" // JSONP Çü½ÄÀ¸·Î È£ÃâÇÏ±â ¶§¹®¿¡ °á°ú°ª Æ÷¸ËÀº json
+				q : $("#q").val(), // å¯ƒï¿½ï¿½ï¿½ï¿½
+				result : "10", // ï¿½ï¿½ï¿½ï¿½ëŒï¿½ï¿½ï¿½ç•°ï¿½ï¿½ï¿½ï¿½å¯ƒê³Œë‚µï¿½ï¿½
+				pageno : $("#pageno").val(), // ï¿½ï¿½ï¿½ï§žï¿½ï¿½ï¿½ï¿½
+				output : "json" // JSONP ï¿½ï¿½ï¿½ï¿½ì‡°ï¿½ ï¿½ëª„ï¿½ï¿½ï¿½ë¦° ï¿½ï¿½Ð¦ï¿½ï¿½å¯ƒê³Œë‚µåª›ï¿½ï¿½Ñ‰ãŽŽï¿½ï¿½json
 			},
 			success : function(r) {
 				var list = r.channel.item;
@@ -47,6 +51,7 @@
 	$(function() {
 		$("#go").click(search);
 		$("#addCart").click(addCart);
+		$("#blogPost").click(blogPost);
 		$("#q").bind("change", function() {
 			$("#pageno").val(1);
 		});
@@ -68,8 +73,10 @@
 			type="text" value="1"> <input id="go" type="button"
 			value="Go">
 	</form>
-		<input id="addCart" type="button" 
+	<input id="addCart" type="button" 
 			value="Add">
+	<input id="blogPost" type="button" 
+			value="blogPost">
 	<div id="cart"></div>
 
   </body>
