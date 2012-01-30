@@ -16,11 +16,15 @@
 	var blogPost = function(){
 		var images = $("#cart").html();
 		$.get("http://localhost:8080/gateway.jsp", 
-				{p:"<link rel='stylesheet' href='http://fotoramajs.com/fotorama/fotorama.css'>    <scr"+"ipt src='http://code.jquery.com/jquery-1.7.min.js' type='text/javascript'></scr"+"ipt>    <scr"+"ipt src='http://fotoramajs.com/fotorama/fotorama.js' type='text/javascript'></scr"+"ipt>    <div id='fotorama'> "+ images + "</div>  viva, Lets ROCK!!!  <sc"+"ript type='text/javascript'>   $(function() {        $('#fotorama').fotorama();      });    </scr"+"ipt>", 
+				{p:"<link rel='stylesheet' href='http://fotoramajs.com/fotorama/fotorama.css'>"+
+			"<scr"+"ipt src='http://code.jquery.com/jquery-1.7.min.js' type='text/javascript'></scr"+
+			"ipt><scr"+"ipt src='http://fotoramajs.com/fotorama/fotorama.js' type='text/javascript'></scr"+
+			"ipt><div id='fotorama'> "+ images + "</div>  viva, Lets ROCK!!!  <sc"+
+			"ript type='text/javascript'>$(function() {$('#fotorama').fotorama({'width': 600, 'height': 530});});</scr"+"ipt>", 
 				 s:escape($("#q").val()+" 갤러리")},
 			     function(r){
 				    alert("Data Loaded: " + r);
-					location.href = r;
+					window.open(r);
 				   });
 	}
 	var delImg = function(e) {
@@ -52,7 +56,7 @@
 				$("#fotorama").remove();
 				var newArea = "fotorama";
 				$("body").append("<div id='"+ newArea +"'></div>");
-				$("#"+newArea).html(html).fotorama({"width": 700, "height": 464});				
+				$("#"+newArea).html(html).fotorama({"width": 600, "height": 360});				
 				$("#pageno").val(parseInt($("#pageno").val()) + 1);
 			}
 		});
@@ -73,14 +77,22 @@
 	});
   </script>
 <style type="text/css">
-#cart{float:right; border:1px solid #ddd; height: 320px; width:480px; overflow:hidden}
-#cart img {width:10%}
+* {font-size: 30px;}
+form {
+padding: 0;
+margin: 0;
+}
+input {text-align: center; width: 200px}
+input[type="button"] {width: 120px;}
+#pageno {width: 60px;}
+#cart{float:right; border:1px solid #ddd; height: 160px; width:300px; overflow:hidden; margin: 40px;}
+#cart img {width:20%}
 </style>
   </head>
   <body>
   	<form onsubmit="return search()">
 		<input id="q" type="text" value="snsd"> <input id="pageno"
-			type="text" value="1"> <input id="go" type="button"
+			type="text" value="1"> page <input id="go" type="button"
 			value="Go">
 	</form>
 	<input id="addCart" type="button" 
