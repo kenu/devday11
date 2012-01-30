@@ -52,7 +52,7 @@
 				$("#fotorama").remove();
 				var newArea = "fotorama";
 				$("body").append("<div id='"+ newArea +"'></div>");
-				$("#"+newArea).html(html).fotorama({"width": 700, "height": 464});				
+				$("#"+newArea).html(html).fotorama({"width": 480, "height": 360});				
 				$("#pageno").val(parseInt($("#pageno").val()) + 1);
 			}
 		});
@@ -73,14 +73,22 @@
 	});
   </script>
 <style type="text/css">
-#cart{float:right; border:1px solid #ddd; height: 320px; width:480px; overflow:hidden}
-#cart img {width:10%}
+* {font-size: 30px;}
+form {
+padding: 0;
+margin: 0;
+}
+input {text-align: center; width: 200px}
+input[type="button"] {width: 120px;}
+#pageno {width: 60px;}
+#cart{float:right; border:1px solid #ddd; height: 160px; width:300px; overflow:hidden; margin: 40px;}
+#cart img {width:18%}
 </style>
   </head>
   <body>
   	<form onsubmit="return search()">
 		<input id="q" type="text" value="snsd"> <input id="pageno"
-			type="text" value="1"> <input id="go" type="button"
+			type="text" value="1"> page <input id="go" type="button"
 			value="Go">
 	</form>
 	<input id="addCart" type="button" 
